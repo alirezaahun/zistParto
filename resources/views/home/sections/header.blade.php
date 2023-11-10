@@ -64,7 +64,7 @@
             </button>
             <div id="toggle-menu" class="collapse navbar-collapse">
                 <ul class="navbar-nav w-100">
-                    <li class="nav-item dropdown mr-auto">
+                    <li class="nav-item dropdown">
                         <a role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void(0);" class="nav-link"><h2>خانه</h2></a>
                         {{-- <div class="dropdown-menu">
                             <div class="menu-items">
@@ -167,6 +167,17 @@
                                 </h3>
                             </div>
                         </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="javascript:void(0);" class="nav-link">
+                            @guest
+                            <h7>ورود|ثبت نام</h7>
+                            @endguest
+                            @auth
+                            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                            @endauth
+                        </a>
+
                     </li>
                 </ul>
             </div>

@@ -34,6 +34,7 @@ use App\Http\Controllers\Home\CommentController as HomeCommentController;
 use App\Http\Controllers\Home\HomeProductController;
 use App\Http\Controllers\Home\CategoryController as HomeCategoryController;
 use App\Http\Controllers\Home\HomeCourseController;
+use App\Http\Controllers\Home\userSectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,7 @@ Route::post('/uploadImage', [CourseController::class, 'getImage']);
 Route::get('/' , [HomeController::class , 'index']);
 Route::resource('/courses' , HomeCourseController::class);
 Route::resource('/products' , HomeProductController::class);
+Route::get('/profile' , [userSectionController::class , 'profile']);
 // Route::get('/add-to-wishlist/{product}', [WishlistController::class, 'add'])->name('home.wishlist.add');
 // Route::get('/remove-from-wishlist/{product}', [WishlistController::class, 'remove'])->name('home.wishlist.remove');
 
@@ -78,7 +80,7 @@ Route::resource('/products' , HomeProductController::class);
 // Route::post('/payment', [PaymentController::class, 'payment'])->name('home.payment');
 // Route::get('/payment-verify/{gatewayName}', [PaymentController::class, 'paymentVerify'])->name('home.payment_verify');
 
-// Route::any('/login', [AuthController::class, 'login'])->name('login');
+Route::any('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/check-otp', [AuthController::class, 'checkOtp']);
 Route::post('/resend-otp', [AuthController::class, 'resendOtp']);
 

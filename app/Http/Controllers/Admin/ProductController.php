@@ -57,9 +57,6 @@ class ProductController extends Controller
         $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'primary_image' => 'required|mimes:jpg,jpeg,png,svg',
-            'images' => 'required',
-            'images.*' => 'mimes:jpg,jpeg,png,svg',
         ]);
         try {
             DB::beginTransaction();
@@ -69,18 +66,17 @@ class ProductController extends Controller
 
             $product = Product::create([
                 'title' => $request->title,
-                'image' => $fileNameImages['fileNamePrimaryImage'],
                 'description' => $request->description,
                 'price' => $request->price,
                 'quantity' => $request->quantity
             ]);
 
-            foreach ($fileNameImages['fileNameImages'] as $fileNameImage) {
-                ProductImage::create([
-                    'product_id' => $product->id,
-                    'image' => $fileNameImage
-                ]);
-            }
+            // foreach ($fileNameImages['fileNameImages'] as $fileNameImage) {
+            //     ProductImage::create([
+            //         'product_id' => $product->id,
+            //         'image' => $fileNameImage
+            //     ]);
+            // }
 
             DB::commit();
         } catch (\Exception $ex) {

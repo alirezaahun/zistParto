@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 
 <head>
     <meta charset="UTF-8">
@@ -23,13 +23,77 @@
     <!--  Custom Style CSS  -->
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+
+    <style>
+        .multi-item-carousel {
+            .carousel-inner {
+                >.item {
+                    transition: 500ms ease-in-out left;
+                }
+
+                .active {
+                    &.left {
+                        left: -33%;
+                    }
+
+                    &.right {
+                        left: 33%;
+                    }
+                }
+
+                .next {
+                    left: 33%;
+                }
+
+                .prev {
+                    left: -33%;
+                }
+
+                @media all and (transform-3d),
+                (-webkit-transform-3d) {
+                    >.item {
+                        // use your favourite prefixer here
+                        transition: 500ms ease-in-out left;
+                        transition: 500ms ease-in-out all;
+                        backface-visibility: visible;
+                        transform: none !important;
+                    }
+                }
+            }
+
+            .carouse-control {
+
+                &.left,
+                &.right {
+                    background-image: none;
+                }
+            }
+        }
+
+        // non-related styling:
+        body {
+            background: #333;
+            color: #ddd;
+        }
+
+        h1 {
+            color: white;
+            font-size: 2.25em;
+            text-align: center;
+            margin-top: 1em;
+            margin-bottom: 2em;
+            text-shadow: 0px 2px 0px rgba(0, 0, 0, 1);
+        }
+    </style>
+
+    @yield('css')
 </head>
 
 <body data-spy="scroll" data-target="#scrollspy" data-offset="1">
 
     @include('home.sections.header')
 
-    <div id="onyx-preloader">
+    {{-- <div id="onyx-preloader">
         <div  class="preloader">
             <div class="spinner"></div>
             <div class="loader">
@@ -44,7 +108,7 @@
                 <span data-text="O" class="letter-animation">O</span>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     @yield('content')
     @include('home.sections.footer')
@@ -64,6 +128,28 @@
     crossorigin="anonymous"></script> --}}
     <script src="{{ asset('js/home.js') }}"></script>
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+    <script>
+        // Instantiate the Bootstrap carousel
+        $('.multi-item-carousel').carousel({
+            interval: false
+        });
+
+        // for every slide in carousel, copy the next slide's item in the slide.
+        // Do the same for the next, next item.
+        $('.multi-item-carousel .item').each(function() {
+            var next = $(this).next();
+            if (!next.length) {
+                next = $(this).siblings(':first');
+            }
+            next.children(':first-child').clone().appendTo($(this));
+
+            if (next.next().length > 0) {
+                next.next().children(':first-child').clone().appendTo($(this));
+            } else {
+                $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
+            }
+        });
+    </script>
 
 
 </body>

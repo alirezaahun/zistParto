@@ -1,5 +1,5 @@
         <!--  Footer Start  -->
-        <footer id="footer" class="footer-01">
+        <footer style="" id="footer" class="footer-01">
             <div class="container">
                 <div class="footer-subscribe">
                     <div class="row align-items-center">
